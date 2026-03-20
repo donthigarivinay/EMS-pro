@@ -66,7 +66,7 @@ const forgotPassword = async (req, res) => {
     await user.save({ validateBeforeSave: false });
 
     // Ensure frontend port matches
-    const resetUrl = `http://localhost:5173/resetpassword/${resetToken}`;
+    const resetUrl = `http://13.53.103.92:5173/resetpassword/${resetToken}`;
     const message = `You are receiving this email because you (or someone else) has requested a password reset.\n\nPlease make a put request to:\n\n${resetUrl}`;
 
     try {

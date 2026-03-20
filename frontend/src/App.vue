@@ -143,7 +143,7 @@ const showProfile = ref(false)
 const fetchNotifications = async () => {
   if (!isAuthenticated.value) return
   try {
-    const { data } = await axios.get('http://localhost:5000/api/notifications')
+    const { data } = await axios.get('http://13.53.103.92:5000/api/notifications')
     notifications.value = data
   } catch (err) {
     console.error('Failed to fetch notifications')
@@ -152,7 +152,7 @@ const fetchNotifications = async () => {
 
 const markAsRead = async (id) => {
   try {
-    await axios.put(`http://localhost:5000/api/notifications/${id}/read`)
+    await axios.put(`http://13.53.103.92:5000/api/notifications/${id}/read`)
     const n = notifications.value.find(x => x._id === id)
     if (n) n.isRead = true
   } catch (err) { }
@@ -160,7 +160,7 @@ const markAsRead = async (id) => {
 
 const markAllRead = async () => {
   try {
-    await axios.put(`http://localhost:5000/api/notifications/read-all`)
+    await axios.put(`http://13.53.103.92:5000/api/notifications/read-all`)
     notifications.value.forEach(n => n.isRead = true)
   } catch (err) { }
 }
