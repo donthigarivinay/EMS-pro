@@ -39,18 +39,16 @@ const router = createRouter({
 })
 
 // Navigation Guard
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
   const token = sessionStorage.getItem('token')
   const user = JSON.parse(sessionStorage.getItem('user') || '{}')
   
   if (to.meta.requiresAuth && !token) {
-    next('/login')
+    return '/login'
   } else if (to.meta.requiresAuth && to.meta.role !== user.role) {
-    next(user.role === 'employer' ? '/employer' : user.role === 'hr' ? '/hr' : '/employee')
+    return user.role === 'employer' ? '/employer' : user.role === 'hr' ? '/hr' : '/employee'
   } else if ((to.path === '/login' || to.path === '/signup') && token) {
-    next(user.role === 'employer' ? '/employer' : user.role === 'hr' ? '/hr' : '/employee')
-  } else {
-    next()
+    return user.role === 'employer' ? '/employer' : user.role === 'hr' ? '/hr' : '/employee'
   }
 })
 

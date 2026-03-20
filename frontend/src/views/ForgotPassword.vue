@@ -74,7 +74,7 @@ const handleForgotPassword = async () => {
   error.value = ''
   loading.value = true
   try {
-    await axios.post('http://13.53.103.92:5000/api/auth/forgotpassword', { email: email.value })
+    await axios.post('/api/auth/forgotpassword', { email: email.value })
     success.value = true
   } catch (err) {
     error.value = err.response?.data?.message || 'Something went wrong. Please try again.'

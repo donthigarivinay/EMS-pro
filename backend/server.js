@@ -8,6 +8,9 @@ const path = require('path');
 dotenv.config();
 
 const app = express();
+console.log('====================================');
+console.log('   EMS PRO BACKEND - VERSION 2.0   ');
+console.log('====================================');
 
 // Middleware
 app.use(cors());
@@ -28,8 +31,14 @@ app.use('/api/users', userRoutes);
 app.use('/api/notifications', notificationRoutes);
 
 // Database Connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/ems')
-  .then(() => console.log('MongoDB Connected successfully'))
+console.log('Connecting to MongoDB with URI:', process.env.MONGO_URI ? 'URI set in .env' : 'Using Local Fallback');
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/EMS', {
+  dbName: 'EMS'
+})
+  .then(() => {
+    console.log('MongoDB Connected successfully');
+    console.log('Using Database:', mongoose.connection.name);
+  })
   .catch(err => console.log('MongoDB Connection Error:', err));
 
 const PORT = process.env.PORT || 5000;

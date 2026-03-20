@@ -158,7 +158,7 @@
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-slate-900">{{ formatDate(leave.startDate) }}</div>
                     <div class="text-xs text-slate-500 mb-1">to {{ formatDate(leave.endDate) }}</div>
-                    <a v-if="leave.attachmentUrl" :href="'http://13.53.103.92:5000' + leave.attachmentUrl" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200 hover:bg-indigo-100 transition-colors uppercase tracking-wider">
+                    <a v-if="leave.attachmentUrl" :href="leave.attachmentUrl" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200 hover:bg-indigo-100 transition-colors uppercase tracking-wider">
                       <Paperclip class="w-2.5 h-2.5" /> Attachment
                     </a>
                   </td>
@@ -257,7 +257,7 @@ const formatDate = (dateString) => {
 
 const fetchBalance = async () => {
   try {
-    const { data } = await axios.get('http://13.53.103.92:5000/api/users/balance')
+    const { data } = await axios.get('/api/users/balance')
     balance.value = data
   } catch (err) {
     console.error('Failed to fetch balance', err)
@@ -276,7 +276,7 @@ const fetchPublicHolidays = async () => {
 
 const fetchLeaves = async () => {
   try {
-    const { data } = await axios.get('http://13.53.103.92:5000/api/leaves/my-leaves')
+    const { data } = await axios.get('/api/leaves/my-leaves')
     leaves.value = data
   } catch (err) {
     console.error('Failed to fetch leaves', err)
@@ -343,7 +343,7 @@ const applyLeave = async () => {
       formData.append('attachment', fileAttachment.value)
     }
 
-    await axios.post('http://13.53.103.92:5000/api/leaves/apply', formData, {
+    await axios.post('/api/leaves/apply', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
     success.value = 'Application submitted successfully'

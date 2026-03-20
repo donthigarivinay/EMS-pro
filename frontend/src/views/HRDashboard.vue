@@ -99,7 +99,7 @@
                   </div>
                   <div class="text-sm text-slate-900">{{ formatDate(leave.startDate) }}</div>
                   <div class="text-xs text-slate-500" v-if="leave.duration !== 'Half Day'">to {{ formatDate(leave.endDate) }}</div>
-                  <a v-if="leave.attachmentUrl" :href="'http://13.53.103.92:5000' + leave.attachmentUrl" target="_blank" class="inline-flex items-center gap-1 mt-1.5 text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200 hover:bg-indigo-100 transition-colors uppercase tracking-wider">
+                  <a v-if="leave.attachmentUrl" :href="leave.attachmentUrl" target="_blank" class="inline-flex items-center gap-1 mt-1.5 text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200 hover:bg-indigo-100 transition-colors uppercase tracking-wider">
                     <Paperclip class="w-2.5 h-2.5" /> Attachment
                   </a>
                 </td>
@@ -170,7 +170,7 @@
 
             <div v-if="reviewLeave.attachmentUrl" class="mb-5">
               <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Attached Document</p>
-              <a :href="'http://13.53.103.92:5000' + reviewLeave.attachmentUrl" target="_blank" class="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-indigo-50 text-indigo-700 font-semibold rounded-xl border border-indigo-200 hover:bg-indigo-100 hover:border-indigo-300 transition-colors">
+              <a :href="reviewLeave.attachmentUrl" target="_blank" class="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-indigo-50 text-indigo-700 font-semibold rounded-xl border border-indigo-200 hover:bg-indigo-100 hover:border-indigo-300 transition-colors">
                 <FileText class="w-4 h-4" /> View Medical Report / Attachment
               </a>
             </div>
@@ -249,7 +249,7 @@
                         {{ l.leaveType }} Leave
                       </p>
                       <p class="text-xs text-slate-500 mt-0.5">{{ formatDate(l.startDate) }} to {{ formatDate(l.endDate) }}</p>
-                      <a v-if="l.attachmentUrl" :href="'http://13.53.103.92:5000' + l.attachmentUrl" target="_blank" class="inline-flex items-center gap-1 mt-1 text-[8px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200 hover:bg-indigo-100 transition-colors uppercase tracking-wider">
+                      <a v-if="l.attachmentUrl" :href="l.attachmentUrl" target="_blank" class="inline-flex items-center gap-1 mt-1 text-[8px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200 hover:bg-indigo-100 transition-colors uppercase tracking-wider">
                         <Paperclip class="w-2 h-2" />
                       </a>
                     </div>
@@ -300,7 +300,7 @@ const submitReview = async (status) => {
   if (!reviewLeave.value) return
   isSubmittingReview.value = true
   try {
-    await axios.put(`http://13.53.103.92:5000/api/leaves/${reviewLeave.value._id}`, { status, comment: reviewComment.value })
+    await axios.put(`/api/leaves/${reviewLeave.value._id}`, { status, comment: reviewComment.value })
     await fetchLeaves()
     reviewLeave.value = null
   } catch (err) {
@@ -315,7 +315,7 @@ const openUserProfile = async (userId) => {
   selectedUser.value = {}
   userProfileLoading.value = true
   try {
-    const { data } = await axios.get(`http://13.53.103.92:5000/api/users/${userId}/profile`)
+    const { data } = await axios.get(`/api/users/${userId}/profile`)
     selectedUser.value = data
   } catch (err) {
     alert(err.response?.data?.message || 'Failed to load user profile')
@@ -358,7 +358,7 @@ const calculateUsed = (leavesArr, type) => {
 
 const fetchLeaves = async () => {
   try {
-    const { data } = await axios.get('http://13.53.103.92:5000/api/leaves/all')
+    const { data } = await axios.get('/api/leaves/all')
     leaves.value = data
   } catch (err) {
     console.error('Failed to fetch leaves', err)

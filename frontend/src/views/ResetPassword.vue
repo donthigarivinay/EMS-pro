@@ -91,7 +91,7 @@ const handleResetPassword = async () => {
   
   loading.value = true
   try {
-    const { data } = await axios.put(`http://13.53.103.92:5000/api/auth/resetpassword/${route.params.token}`, { 
+    const { data } = await axios.put(`/api/auth/resetpassword/${route.params.token}`, { 
       password: password.value 
     })
     
