@@ -1,6 +1,8 @@
 # Advanced Leave Management System (EMS)
 
-A modern, full-stack Leave Management System built with Vue.js, Tailwind CSS, Node.js, Express, and MongoDB.
+**🚀 Live Application:** [http://13.53.103.92:5173](http://13.53.103.92:5173)
+
+A modern, full-stack Leave Management System built with Vue.js, Tailwind CSS, Node.js, Express, and MongoDB (featuring a premium Dark Mode Glassmorphism UI).
 
 ## Features
 
