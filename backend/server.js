@@ -38,6 +38,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/EMS', {
   .then(() => {
     console.log('MongoDB Connected successfully');
     console.log('Using Database:', mongoose.connection.name);
+    console.log('Connection Readiness State:', mongoose.connection.readyState);
   })
   .catch(err => console.log('MongoDB Connection Error:', err));
 
